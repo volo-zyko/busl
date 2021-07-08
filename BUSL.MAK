@@ -1,0 +1,89 @@
+# Microsoft Visual C++ generated build script - Do not modify
+
+PROJ = BUSL
+DEBUG = 0
+PROGTYPE = 6
+CALLER = 
+ARGS = 
+DLLS = 
+D_RCDEFINES = -d_DEBUG
+R_RCDEFINES = -dNDEBUG
+ORIGIN = MSVC
+ORIGIN_VER = 1.00
+PROJPATH = C:\BUSL\
+USEMFC = 0
+CC = cl
+CPP = cl
+CXX = cl
+CCREATEPCHFLAG = 
+CPPCREATEPCHFLAG = 
+CUSEPCHFLAG = 
+CPPUSEPCHFLAG = 
+FIRSTC = BUSL.C      
+FIRSTCPP =             
+RC = rc
+CFLAGS_D_DEXE = /nologo /G2 /Za /W4 /WX /Zi /Od /D "_DEBUG" /D "_DOS" /D "STRICT" /FR /Fd"BUSL.PDB"
+CFLAGS_R_DEXE = /nologo /Gs /G2 /Za /W4 /WX /Gf /O1 /Op- /Ox /D "NDEBUG" /D "_DOS" /D "STRICT" /FR 
+LFLAGS_D_DEXE = /NOLOGO /NOE /NOI /STACK:32768 /ONERROR:NOEXE /CO 
+LFLAGS_R_DEXE = /NOLOGO /NOE /NOI /STACK:32768 /ONERROR:NOEXE 
+LIBS_D_DEXE = slibce 
+LIBS_R_DEXE = slibce 
+RCFLAGS = /nologo
+RESFLAGS = /nologo
+RUNFLAGS = 
+OBJS_EXT = 
+LIBS_EXT = 
+!if "$(DEBUG)" == "1"
+CFLAGS = $(CFLAGS_D_DEXE)
+LFLAGS = $(LFLAGS_D_DEXE)
+LIBS = $(LIBS_D_DEXE)
+MAPFILE = nul
+RCDEFINES = $(D_RCDEFINES)
+!else
+CFLAGS = $(CFLAGS_R_DEXE)
+LFLAGS = $(LFLAGS_R_DEXE)
+LIBS = $(LIBS_R_DEXE)
+MAPFILE = nul
+RCDEFINES = $(R_RCDEFINES)
+!endif
+!if [if exist MSVC.BND del MSVC.BND]
+!endif
+SBRS = BUSL.SBR \
+		BUSLLIB.SBR
+
+
+BUSL_DEP = C:\busl\busl.h
+
+
+BUSLLIB_DEP = C:\busl\busl.h
+
+
+all:	$(PROJ).EXE $(PROJ).BSC
+
+BUSL.OBJ:	BUSL.C $(BUSL_DEP)
+	$(CC) $(CFLAGS) $(CCREATEPCHFLAG) /c BUSL.C
+
+BUSLLIB.OBJ:	BUSLLIB.C $(BUSLLIB_DEP)
+	$(CC) $(CFLAGS) $(CUSEPCHFLAG) /c BUSLLIB.C
+
+$(PROJ).EXE::	BUSL.OBJ BUSLLIB.OBJ $(OBJS_EXT) $(DEFFILE)
+	echo >NUL @<<$(PROJ).CRF
+BUSL.OBJ +
+BUSLLIB.OBJ +
+$(OBJS_EXT)
+$(PROJ).EXE
+$(MAPFILE)
+C:\MSVC\LIB\+
+$(LIBS)
+$(DEFFILE);
+<<
+	link $(LFLAGS) @$(PROJ).CRF
+
+run: $(PROJ).EXE
+	$(PROJ) $(RUNFLAGS)
+
+
+$(PROJ).BSC: $(SBRS)
+	bscmake @<<
+/o$@ $(SBRS)
+<<

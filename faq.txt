@@ -1,0 +1,132 @@
+          BUSL FAQ
+
+- BUSL caused corruption of my source files. What can I do?
+
+  First, you should have saved your sources before using BUSL!
+  Or, better, use a version control system like CVS or Subversion.
+  See the file COPYING for the exact licence terms.
+
+  Second, I don't believe you! BUSL has been developed with the
+  idea that it should be almost impossible to loose anything
+  unless you really want to. Every time BUSL overwrites a file,
+  a backup-file is written with the '~' appended to the file-name.
+  So, the only way to possibly loose sources is to run BUSL twice.
+  But then, BUSL is designed that if you run it twice with the same
+  options, the second time BUSL will not do anything. Only using the
+  "f" option this can be forced, so only use the "f" option if
+  you are sure you have a backup of your sources!
+
+  If you really want to assure yourself that it is very difficult to
+  lose data with BUSL unless you want to, you can do the following:
+  - First backup your files, or make a copy and perform the test below
+    on the copy (you don't need to, but just in case....).
+  - Then run BUSL on it with whatever options you like (except 'f'!!!!)
+    For each modified file BUSL will create a <filename>~ backup file.
+  - Run BUSL again with the same options as before (!!). BUSL should now
+    answer with "no sources modified". If BUSL doesn't answer this, then
+    report this as a BUG!
+
+- My if/else statements are not beautified as expected?
+
+  First of all, it is highly unlikely that you will encounter
+  this: BUSL has been tested with thousends of lines of representative
+  code in different programming languages and in none of them
+  this known pitfall is observed.
+  The reason for this is that BUSL uses a simplified algorithm
+  to do this indenting. Fixing it would involve keep complete
+  trace of the level of if/else statements, for now it doesn't
+  seem worth the trouble. Maybe after 1.0......Example:
+
+  if ()
+      if ()
+          a();
+      else
+          b();
+  else
+      c();
+  d();
+
+  BUSL will beautify this to:
+
+  if ()
+      if ()
+          a();
+  else
+      b();
+  else
+      c();
+  d();
+
+  B.T.W: bcpp does it incorrect as well, in exactly the same way.
+
+  The best solution is always use curly brackets in multi-line
+  if/else statements.
+
+- The divide operator doesn't work when put at a separate line.
+  BUSL complains with "ERROR: test.c: / missing at end of file."
+  e.g.:
+      var x = 8
+      / 4;
+
+  The reason for this is a simplified algorithm to detect the
+  difference between a divide operator and the regexp construct
+  from javascript. When the slash operator is not followed by
+  * or /, and is not the first on a line or is preceded by one
+  of "({[:;,?=", then it is recognized as the beginning of
+  a regexp construction. In 99.9% of the cases this is correct,
+  but the above situation is an exception.
+  Workaround: Put the divide operator in the previous line, or
+  put a comment in front of it:
+      int x = 8
+      /* comment */ / 4;
+
+- Problems with regexp constructor when preceded by a comment.
+  e.g.:
+      var x = /* comment */ /xyz'/;
+  this will result in: " ERROR: test.c: ' missing at end of file."
+  e.g.:
+      var x = /xyz   /;
+  this will be modified as:
+      var x = /xyz /;
+
+  The reason for this is the same as in the previous question. In
+  99.9% of the cases this is correct, but the described situation is
+  an exception. The regexp is recognized as a divide operator.
+  Workaround: don't put a comment immediately preceding a regexp:
+      var x = /xyz'/; /* comment */
+
+- Beautifying a file from within MSVC++ doesn't work when
+  the path or filename contains a space.
+
+  Are you sure you put double-quotes around the "Arguments"
+  parameter in the Tools -> Customize -> Beautify (BUSL)
+  dialog? See "busl.png" in the distribution how this dialog
+  should look like.
+
+- BUSL reports unmatching braces and refuses to beautify, but
+  everything compiles fine. What is going on?
+  
+  The only known way this can happen is if you use braces within
+  conditional parts in C or C++. E.g.:
+
+  #ifdef XXX
+      if (xx) {
+  #else
+      if (yy) {
+  #endif
+          do_something();
+      }
+
+  In BUSL, C preprocessor commands are handled as comments. You can
+  fix this by changing the above example as:
+
+  #ifdef XXX
+      if (xx)
+  #else
+      if (yy)
+  #endif
+      {
+          do_something();
+      }
+
+

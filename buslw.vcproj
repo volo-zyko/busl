@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<script src="//archive.org/includes/analytics.js?v=cf34f82" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app31.us.archive.org';v.server_ms=170;archive_analytics.send_pageview({});});</script><script type="text/javascript" src="/_static/js/playback.bundle.js?v=xTFGO54E" charset="utf-8"></script>
+<script type="text/javascript" src="/_static/js/wombat.js?v=i68pdzR-" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://busl.tigris.org/source/browse/*checkout*/busl/src/buslw.vcproj?revision=1.4","20200701191801","https://web.archive.org/","web","/_static/",
+	      "1593631081");
+</script>
+<link rel="stylesheet" type="text/css" href="/_static/css/banner-styles.css?v=omkqRugM" />
+<link rel="stylesheet" type="text/css" href="/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+<visualstudioproject projecttype="Visual C++" version="7.10" name="buslw" sccprojectname="" scclocalpath="">
+	<platforms>
+		<platform name="Win32"/>
+	</platforms>
+	<configurations>
+		<configuration name="Release|Win32" outputdirectory=".\Releasew" intermediatedirectory=".\Releasew" configurationtype="1" useofmfc="0" atlminimizescruntimelibraryusage="FALSE" characterset="2">
+			<tool name="VCCLCompilerTool" optimization="1" inlinefunctionexpansion="1" preprocessordefinitions="_WINDOWS;WIN32;NDEBUG;STRICT" stringpooling="TRUE" runtimelibrary="2" enablefunctionlevellinking="TRUE" precompiledheaderfile=".\Releasew/buslw.pch" assemblerlistinglocation=".\Releasew/" objectfile=".\Releasew/" programdatabasefilename=".\Releasew/" warninglevel="4" warnaserror="TRUE" suppressstartupbanner="TRUE"/>
+			<tool name="VCCustomBuildTool"/>
+			<tool name="VCLinkerTool" outputfile="buslw.exe" linkincremental="1" suppressstartupbanner="TRUE" programdatabasefile=".\Releasew/buslw.pdb" subsystem="2" targetmachine="1"/>
+			<tool name="VCMIDLTool" preprocessordefinitions="NDEBUG" mktyplibcompatible="TRUE" suppressstartupbanner="TRUE" targetenvironment="1" typelibraryname=".\Releasew/buslw.tlb" headerfilename=""/>
+			<tool name="VCPostBuildEventTool"/>
+			<tool name="VCPreBuildEventTool"/>
+			<tool name="VCPreLinkEventTool"/>
+			<tool name="VCResourceCompilerTool" preprocessordefinitions="NDEBUG" culture="1033"/>
+			<tool name="VCWebServiceProxyGeneratorTool"/>
+			<tool name="VCXMLDataGeneratorTool"/>
+			<tool name="VCWebDeploymentTool"/>
+			<tool name="VCManagedWrapperGeneratorTool"/>
+			<tool name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</configuration>
+		<configuration name="Debug|Win32" outputdirectory=".\Debugw" intermediatedirectory=".\Debugw" configurationtype="1" useofmfc="0" atlminimizescruntimelibraryusage="FALSE" characterset="2">
+			<tool name="VCCLCompilerTool" optimization="0" preprocessordefinitions="_WINDOWS;WIN32;_DEBUG;STRICT" basicruntimechecks="3" runtimelibrary="3" useprecompiledheader="2" precompiledheaderfile=".\Debugw/buslw.pch" assemblerlistinglocation=".\Debugw/" objectfile=".\Debugw/" programdatabasefilename=".\Debugw/" warninglevel="4" warnaserror="TRUE" suppressstartupbanner="TRUE" detect64bitportabilityproblems="TRUE" debuginformationformat="4"/>
+			<tool name="VCCustomBuildTool"/>
+			<tool name="VCLinkerTool" outputfile="busldw.exe" linkincremental="1" suppressstartupbanner="TRUE" generatedebuginformation="TRUE" programdatabasefile=".\Debugw/busldw.pdb" subsystem="2" targetmachine="1"/>
+			<tool name="VCMIDLTool" preprocessordefinitions="_DEBUG" mktyplibcompatible="TRUE" suppressstartupbanner="TRUE" targetenvironment="1" typelibraryname=".\Debugw/buslw.tlb" headerfilename=""/>
+			<tool name="VCPostBuildEventTool"/>
+			<tool name="VCPreBuildEventTool"/>
+			<tool name="VCPreLinkEventTool"/>
+			<tool name="VCResourceCompilerTool" preprocessordefinitions="_DEBUG" culture="1033"/>
+			<tool name="VCWebServiceProxyGeneratorTool"/>
+			<tool name="VCXMLDataGeneratorTool"/>
+			<tool name="VCWebDeploymentTool"/>
+			<tool name="VCManagedWrapperGeneratorTool"/>
+			<tool name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</configuration>
+	</configurations>
+	<references>
+	</references>
+	<files>
+		<filter name="Source Files" filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
+			<file relativepath="busllib.c">
+				<fileconfiguration name="Release|Win32">
+					<tool name="VCCLCompilerTool" optimization="1" preprocessordefinitions=""/>
+				</fileconfiguration>
+				<fileconfiguration name="Debug|Win32">
+					<tool name="VCCLCompilerTool" optimization="0" preprocessordefinitions="" basicruntimechecks="3"/>
+				</fileconfiguration>
+			</file>
+			<file relativepath="buslw.c">
+				<fileconfiguration name="Release|Win32">
+					<tool name="VCCLCompilerTool" optimization="1" preprocessordefinitions=""/>
+				</fileconfiguration>
+				<fileconfiguration name="Debug|Win32">
+					<tool name="VCCLCompilerTool" optimization="0" preprocessordefinitions="" basicruntimechecks="3"/>
+				</fileconfiguration>
+			</file>
+		</filter>
+		<filter name="Resource Files" filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+			<file relativepath="busl.rc">
+			</file>
+		</filter>
+		<filter name="Header Files" filter="h;hpp;hxx;hm;inl">
+			<file relativepath=".\busl.h">
+			</file>
+		</filter>
+	</files>
+	<globals>
+	</globals>
+</visualstudioproject>

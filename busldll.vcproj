@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<script src="//archive.org/includes/analytics.js?v=cf34f82" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app57.us.archive.org';v.server_ms=153;archive_analytics.send_pageview({});});</script><script type="text/javascript" src="/_static/js/playback.bundle.js?v=xTFGO54E" charset="utf-8"></script>
+<script type="text/javascript" src="/_static/js/wombat.js?v=i68pdzR-" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://busl.tigris.org/source/browse/*checkout*/busl/src/busldll.vcproj?revision=1.3","20200701191731","https://web.archive.org/","web","/_static/",
+	      "1593631051");
+</script>
+<link rel="stylesheet" type="text/css" href="/_static/css/banner-styles.css?v=omkqRugM" />
+<link rel="stylesheet" type="text/css" href="/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+<visualstudioproject projecttype="Visual C++" version="7.10" name="busldll" projectguid="{F083870E-9562-4642-84A4-AFB08986A158}" keyword="Win32Proj">
+	<platforms>
+		<platform name="Win32"/>
+	</platforms>
+	<configurations>
+		<configuration name="Debug|Win32" outputdirectory="Debug" intermediatedirectory="Debug" configurationtype="2" characterset="2">
+			<tool name="VCCLCompilerTool" optimization="0" additionalincludedirectories="&quot;\Program Files\Java\jdk1.5.0_05\include&quot;;&quot;\Program Files\Java\jdk1.5.0_05\include\win32&quot;" preprocessordefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;BUSL_EXPORT=__declspec(dllexport) " minimalrebuild="TRUE" exceptionhandling="FALSE" basicruntimechecks="3" runtimelibrary="1" disablelanguageextensions="FALSE" useprecompiledheader="0" warninglevel="4" warnaserror="TRUE" detect64bitportabilityproblems="TRUE" debuginformationformat="4" compileas="0"/>
+			<tool name="VCCustomBuildTool"/>
+			<tool name="VCLinkerTool" ignoreimportlibrary="FALSE" outputfile="busld.dll" linkincremental="1" moduledefinitionfile="busldll.def" generatedebuginformation="TRUE" programdatabasefile="$(OutDir)/busldll.pdb" subsystem="2" importlibrary="$(OutDir)/busldll.lib" targetmachine="1"/>
+			<tool name="VCMIDLTool"/>
+			<tool name="VCPostBuildEventTool"/>
+			<tool name="VCPreBuildEventTool"/>
+			<tool name="VCPreLinkEventTool"/>
+			<tool name="VCResourceCompilerTool"/>
+			<tool name="VCWebServiceProxyGeneratorTool"/>
+			<tool name="VCXMLDataGeneratorTool"/>
+			<tool name="VCWebDeploymentTool"/>
+			<tool name="VCManagedWrapperGeneratorTool"/>
+			<tool name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</configuration>
+		<configuration name="Release|Win32" outputdirectory="Release" intermediatedirectory="Release" configurationtype="2" characterset="2">
+			<tool name="VCCLCompilerTool" additionalincludedirectories="&quot;\Program Files\Java\jdk1.5.0_05\include&quot;;&quot;\Program Files\Java\jdk1.5.0_05\include\win32&quot;" preprocessordefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;BUSLDLL_EXPORTS" exceptionhandling="FALSE" runtimelibrary="0" disablelanguageextensions="FALSE" useprecompiledheader="0" warninglevel="4" warnaserror="TRUE" detect64bitportabilityproblems="TRUE" debuginformationformat="3"/>
+			<tool name="VCCustomBuildTool"/>
+			<tool name="VCLinkerTool" outputfile="busl.dll" linkincremental="1" moduledefinitionfile="busldll.def" generatedebuginformation="TRUE" subsystem="2" optimizereferences="2" enablecomdatfolding="2" importlibrary="$(OutDir)/busldll.lib" targetmachine="1"/>
+			<tool name="VCMIDLTool"/>
+			<tool name="VCPostBuildEventTool"/>
+			<tool name="VCPreBuildEventTool"/>
+			<tool name="VCPreLinkEventTool"/>
+			<tool name="VCResourceCompilerTool"/>
+			<tool name="VCWebServiceProxyGeneratorTool"/>
+			<tool name="VCXMLDataGeneratorTool"/>
+			<tool name="VCWebDeploymentTool"/>
+			<tool name="VCManagedWrapperGeneratorTool"/>
+			<tool name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</configuration>
+	</configurations>
+	<references>
+	</references>
+	<files>
+		<filter name="Source Files" filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx" uniqueidentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			<file relativepath=".\busljni.c">
+			</file>
+			<file relativepath=".\busllib.c">
+			</file>
+		</filter>
+		<filter name="Header Files" filter="h;hpp;hxx;hm;inl;inc;xsd" uniqueidentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			<file relativepath=".\busl.h">
+			</file>
+		</filter>
+		<filter name="Resource Files" filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx" uniqueidentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+		</filter>
+	</files>
+	<globals>
+	</globals>
+</visualstudioproject>

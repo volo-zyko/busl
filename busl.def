@@ -1,0 +1,11 @@
+EXPORTS
+busl_beautify@8 @1
+busl_create@12 @2
+busl_delete@4 @3
+busl_finish@8 @4
+busl_usage@8 @5
+Java_org_tigris_busl_Busl_beautify@12 @6
+Java_org_tigris_busl_Busl_finalize@8 @7
+Java_org_tigris_busl_Busl_finish@12 @8
+Java_org_tigris_busl_Busl_init@8 @9
+Java_org_tigris_busl_Busl_usage@12 @10

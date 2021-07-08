@@ -1,0 +1,93 @@
+# Microsoft Visual C++ generated build script - Do not modify
+
+PROJ = BUSLW
+DEBUG = 0
+PROGTYPE = 0
+CALLER = 
+ARGS = 
+DLLS = 
+D_RCDEFINES = -d_DEBUG
+R_RCDEFINES = -dNDEBUG
+ORIGIN = MSVC
+ORIGIN_VER = 1.00
+PROJPATH = C:\BUSL\
+USEMFC = 0
+CC = cl
+CPP = cl
+CXX = cl
+CCREATEPCHFLAG = 
+CPPCREATEPCHFLAG = 
+CUSEPCHFLAG = 
+CPPUSEPCHFLAG = 
+FIRSTC = BUSLW.C     
+FIRSTCPP =             
+RC = rc
+CFLAGS_D_WEXE = /nologo /G2 /W4 /Gf /Zi /AM /Od /D "_DEBUG" /D "_WIN16" /D "STRICT" /FR /GA /Fd"BUSLW.PDB"
+CFLAGS_R_WEXE = /nologo /Gs /W4 /Gf /AM /O1 /D "NDEBUG" /D "_WIN16" /D "STRICT" /FR /GA 
+LFLAGS_D_WEXE = /NOLOGO /NOD /PACKC:61440 /STACK:32768 /ALIGN:16 /ONERROR:NOEXE /CO  
+LFLAGS_R_WEXE = /NOLOGO /NOD /PACKC:61440 /STACK:32768 /ALIGN:16 /ONERROR:NOEXE 
+LIBS_D_WEXE = libw mlibcew oldnames commdlg.lib olecli.lib olesvr.lib shell.lib 
+LIBS_R_WEXE = libw mlibcew oldnames 
+RCFLAGS = /nologo
+RESFLAGS = /nologo
+RUNFLAGS = 
+DEFFILE = BUSLW.DEF
+OBJS_EXT = 
+LIBS_EXT = 
+!if "$(DEBUG)" == "1"
+CFLAGS = $(CFLAGS_D_WEXE)
+LFLAGS = $(LFLAGS_D_WEXE)
+LIBS = $(LIBS_D_WEXE)
+MAPFILE = nul
+RCDEFINES = $(D_RCDEFINES)
+!else
+CFLAGS = $(CFLAGS_R_WEXE)
+LFLAGS = $(LFLAGS_R_WEXE)
+LIBS = $(LIBS_R_WEXE)
+MAPFILE = nul
+RCDEFINES = $(R_RCDEFINES)
+!endif
+!if [if exist MSVC.BND del MSVC.BND]
+!endif
+SBRS = BUSLW.SBR \
+		BUSLLIB.SBR
+
+
+BUSLW_DEP = C:\busl\busl.h
+
+
+BUSLLIB_DEP = C:\busl\busl.h
+
+
+all:	$(PROJ).EXE $(PROJ).BSC
+
+BUSLW.OBJ:	BUSLW.C $(BUSLW_DEP)
+	$(CC) $(CFLAGS) $(CCREATEPCHFLAG) /c BUSLW.C
+
+BUSLLIB.OBJ:	BUSLLIB.C $(BUSLLIB_DEP)
+	$(CC) $(CFLAGS) $(CUSEPCHFLAG) /c BUSLLIB.C
+
+
+$(PROJ).EXE::	BUSLW.OBJ BUSLLIB.OBJ $(OBJS_EXT) $(DEFFILE)
+	echo >NUL @<<$(PROJ).CRF
+BUSLW.OBJ +
+BUSLLIB.OBJ +
+$(OBJS_EXT)
+$(PROJ).EXE
+$(MAPFILE)
+C:\MSVC\LIB\+
+$(LIBS)
+$(DEFFILE);
+<<
+	link $(LFLAGS) @$(PROJ).CRF
+	$(RC) $(RESFLAGS) $@
+
+
+run: $(PROJ).EXE
+	$(PROJ) $(RUNFLAGS)
+
+
+$(PROJ).BSC: $(SBRS)
+	bscmake @<<
+/o$@ $(SBRS)
+<<

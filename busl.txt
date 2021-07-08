@@ -1,0 +1,471 @@
+BUSL version 0.91 (Beta 3)
+
+Beautifier for Universal Set of Languages
+
+Beautifier for the following languages:
+    actionscript
+    asp (javascript variant)
+    C
+    C++
+    C#
+    CINT
+    Ch
+    D
+    java
+    javascript
+    jsp
+    objectscript
+    php
+
+other languages: (not tested and not officially supported,
+        but should at least work reasonably)
+    tcl
+    (visual) basic (script)
+    (maybe more.....)
+
+problematic: (too many language constructs with are incompatible
+        with BUSL's rules)
+    python
+    ruby
+    perl
+    (...)
+
+The archive "busl.zip" contains the following files:
+  busl.txt (this file)
+  busl.exe (executable for Windows, DOS box version)
+  buslw.exe (executable for Windows, dialog box version)
+  busl.??? (executable for other systems)
+  busl.png (image showing MSVC++ Tools Customize dialog)
+  busl.dll (BUSL library and interface to other languages e.g. Java)
+  Busl.jar (Java interface to BUSL)
+  busl.h   (interface to C/C++ library functions)
+  busllib.c(source-code for BUSL library code)
+  busl.c   (source-code for busl.exe)
+  buslw.c  (source-code for buslw.exe)
+  busljni.c(JNI interface for BUSL)
+  Busl.java(java interface for BUSL)
+  Busl.cs  (P/INVOKE interface for BUSL)
+
+WINDOWS BUILD
+
+Building the executable is already done for you. In fact there are
+two executables:
+  busl.exe     command line executable
+  buslw.exe    windows executable
+The only difference is the way output messages are handled:
+busl.exe uses a DOS window, while buslw.exe uses a dialog box.
+For Java, there is a jar-file and a dll:
+  busl.dll     windows dll with BUSL library code and various
+               interfaces (currently Java only, but more
+               languages will follow)
+  Busl.jar     Java equivalent of busl.exe, but using the
+               BUSL JNI interface.
+
+WINDOWS INSTALL
+
+Install for Windows (MSVC++ 5.0/6.0/ VS .NET, could vary among versions):
+
+- Copy the busl.exe executable to your hard disk, for example at:
+    C:\busl\busl.exe
+- Start MSVC++.
+- Select "Tools" -> "Customize". This opens a new dialog.
+- In this dialog, select the "Tools" tab, add a new Menu
+  item "Beautify (BUSL)" and fill in the following fields:
+    Command: C:\busl\busl.exe
+    Arguments: "$(FileName)$(FileExt)" (don't forget the double quotes!)
+    Initial directory: $(FileDir)
+  The dialog should now look like busl.png
+- Close the dialog.
+- Now the Tools menu from MSVC++ has a new item "Beautify (BUSL)".
+  Using this menu you can beautify your source code.
+
+If you don't want the BUSL output to appear in the MSVC++ but only want
+a pop-up if something goes wrong, then you can use buslw.exe in stead
+of busl.exe. Also it is recommended to use the "q" option, which prevents
+the pop-up if there are no errors:
+    Arguments: q "$(FileName)$(FileExt)"
+
+
+UNIX BUILD
+
+Just type:
+    cc -o busl busl.c busllib.c
+This will create the BUSL executable. You can eventually try
+your favorite compiler options. If your C-compiler is ANSI-C compatible
+then it should compile without problems on any platform with any
+compiler options.
+You can as well strip it and/or compress it to reduce its size:
+    strip busl
+
+The Java interface is a little bit more complicated. Build
+the shared object with something like:
+    cc -shared -fPIC -o libbusl.so -I${JAVA_HOME}/include -I${JAVA_HOME}/include/<platform> busljni.c busllib.c
+The JAR is already built for you in this distribution.
+
+UNIX INSTALL
+
+Just copy the "busl.???" executable or the one
+you just compiled, to your bin-directory and rename it to "busl".
+
+RUNNING BUSL
+
+On UNIX, you can run BUSL as follows:
+  >busl <filename>
+  BUSL version 0.91: Beautifier for Universal Set of Languages.
+  Copyright (c) 2003-2009, Jan Nijtmans. All rights reserved.
+  no sources modified
+  >
+On Windows:
+  C:\busl>busl <filename>
+  BUSL version 0.91: Beautifier for Universal Set of Languages.
+  Copyright (c) 2003-2009, Jan Nijtmans. All rights reserved.
+  no sources modified
+  C:\busl>
+
+Using a Java Virtual Machine:
+  java -jar Busl.jar <filename>
+Make sure that the directory where libbusl.so is, is made
+available in the environment variable LD_LIBRARY_PATH.
+Or using the Microsoft JVM, which doesn't understand the -jar option:
+jview /cp busl.jar org.tigris.busl.Busl <filename>
+
+BUSL has the following command-line options.
+  0 no indenting
+  4 indenting 4 spaces/level
+  -4 indenting 1 tab=4 spaces/level (default)
+  a automatic detection of mode (default)
+  f force output
+  g generic mode (default) (resets x, a)
+  l linefeed mode
+  q quiet mode
+  r carriage return mode
+  s strip mode
+  t test mode
+  x xml/html/sgml mode (resets a)
+  z prepare as zip file (not usable with x)
+  @<file> read command line options from file
+  <output-dir> should end with '/' or '\' (default './')
+
+Some options can be used in combinations:
+    busl 4 * (uses indents of 4 spaces per level)
+    busl 4fxa * (indenting 4 spaces, force output, use xml/html/sgml mode
+                 as default but tries to determines mode automatically.)
+
+BEAUTIFYING
+
+BUSL has the following principles:
+
+- During conversion of the file "<file>", a file "<file>$" is written out.
+  If the conversion is successful and there are no layout changes (a change in line
+  end convention only is not considered a layout change), "<file>$" is removed.
+  If there is any layout change, then "<file>" will be copied to "<file>~",
+  "<file>$" is copied to "<file>" and then "<file>$" is removed.
+  If this copy operation fails, then "<file>~" is removed.
+
+- CR, LF or CRLF combinations are all converted to the platform-specific
+  line end conventions:
+    UNIX:      LF
+    Mac:       CR
+    Windows:   CR LF
+  You can control which line end convention is used by the "r" and "l"
+  options:
+    l          = use linefeed only (UNIX)
+    r          = use carriage return only (Mac)
+    rl (or lr) = use carriage return followed by linefeed (Windows)
+
+- A <CTRL>-Z character is recognized as end of stream. If the <CTRL>-Z character
+  is the last character in the stream, or BUSL is in xml/html/sgml mode,
+  then <CTRL>-Z and everything after it is stripped. Otherwise, the <CTRL>-Z
+  character and anything following it is copied unmodified, even without
+  line-end conversion.
+
+- There are 4 types of comments:
+     #      shell-type comment (# must be the first nonspace char at the line)
+     //     C++/java-type comment
+     /* */  C-type comment
+     /+ +/  D-type comment
+  C++ type and shell-type comments end with the next newline, except if
+  this newline is preceded with an uneven number of backslashes.
+
+  The following processing is done within comments:
+  - tabs are converted to either spaces (normally) or \t (if within quotes)
+  - spaces immediately preceding a newline are removed
+  - For C- and D-type comment, after any newline the text will be indented
+    as a single block.
+  Comments are only recognized outside of strings.
+
+- There are 4 types of strings:
+    'xxx'
+    "xxx"
+    /xxx/
+    `xxx`
+  Anything beween the quotes or slashes is left unchanged, except that
+  the following replacements are done:
+    alert (audible alarm, bell) -> \a
+    backspace -> \b
+    form feed -> \f
+    horizontal tab -> \t
+    vertical tab -> \v
+  The end quote or slash is only recognized as string terminator when not
+  preceded with an uneven number of backslashes.
+  The begin slash is only recognized when preceded with one of ":;,?=({["
+  or when it is the first non-space on a line. In addition the begin
+  slash must not immediately precede a '/' or '*', otherwise it is threated
+  as comment.
+
+- There are 4 separator characters:
+    : colon
+    ; semicolon
+    , comma
+    ? question mark
+  Any space before a separator character is removed.
+  A space is placed following the character except if there are
+  multiple separator characters in a row or if the next character
+  removes its preceding space (such as an end-of-line).
+
+- The equals sign is handled especially: When not preceded by one
+  of "~!([{:?;,=<>", and also not preceded by "operator" the equals
+  sign will always be followed by a space.
+
+- There are 4 types of braces.
+     ()
+     {}
+     []
+     ?:
+  An opening brace (except '?') is never followed by a space, and
+  a closing brace never preceded by a space.
+  Spaces preceding '(' are left as is. Spaces preceding '[', '?' and
+  ':' are deleted, except if the '[' is preceded by "delete".
+  Any '{' will be preceded with a space, except when already preceded
+  with any of "~!([{".
+  Any opening brace increments the indent level and any closing
+  brace decrements the indent level.
+  If there is more than a single closing brace on the line which
+  is not opened on the same line, a newline is inserted immeteately
+  preceding all of them but the first.
+  If there is more than a single opening brace on the line which
+  is not closed on the same line, a newline is inserted immediately
+  following all of them but the last.
+
+- Multiple spaces/tabs are converted to a single space, except within
+  strings and comments.
+
+- Newlines have the effect that preceding spaces are removed, and
+  following spaces are replaced with as many tabs as the indent level,
+  except within strings. C- and D-comments have special processing in
+  order to keep comment blocks filling well together.
+
+The above explanation holds for the "generic" mode. There is a
+a xml/html/sgml, three line-end modes and a Strip mode as well.
+
+xml/html/sgml mode (x)
+  The effect of xml/html/sgml mode is that - apart from line end conversion -
+  the beautification process is only executed on everything between
+  <% ... %>, <? ... ?>, <# ... #>, or <script *> ... </script>.
+  Remark: BUSL is not an XML beautifier; it just leaves everything what
+  looks like XML untouched.
+
+carriage return mode (r)
+  In the output, the MAC line end convention (CR) is used no matter what platform
+  BUSL is running on. On MAC, this option has no effect.
+
+linefeed mode (l)
+  In the output, the UNIX line end convention (LF) is used no matter what platform
+  BUSL is running on. On UNIX, this option has no effect.
+
+Windows carriage return linefeed mode (rl or lr)
+  In the output, the Windows line end convention (CR LF) is used no matter what platform
+  BUSL is running on. On Windows, this option has no effect.
+
+Strip mode (s)
+  All unnecessary spaces and comments are stripped. This option is intended
+  for delivery of script-files (e.g. javascript). You could see it as a kind
+  of compression: The scripts will keep the same functionality but the size
+  is smaller. On Windows, you can combine the "s" option with "l" (UNIX
+  linefeed mode) to get even smaller output-files.
+  BUSL refuses to strip compiled languages such as C or Java. This is for
+  your own protection. If you really know what you are doing, then use the
+  "f" option.
+
+Test mode (t)
+  No output is written to files, but apart from that all processing is done
+  normally. This allows to check if a file is correctly beautified
+
+EXAMPLES
+
+  All C and Java source files in this distribution are formatted according the
+  BUSL rules, so you can use them as example for various constructs.
+
+DIFFERENCES WITH OTHER BEAUTIFIERS
+
+  GNU indent
+    ... to be written
+
+  BCPP <http://dickey.his.com/bcpp/bcpp.html>
+    Practically, the output of BUSL is very similar to the output of
+    BCPP, using the following options:
+        bcpp -ylcnc -tbcl -i8 -t
+    with the following exceptions:
+    - BCPP aligns comments on code lines to a fixed column.
+    - BCPP uses an extra indent for expressions spanning multiple lines.
+    - BCPP makes some errors in specific situations, e.g:
+      - comments in case statements
+      - ...
+
+  GC <http://sourceforge.net/projects/gcgreatcode/>
+    ... to be written
+    
+
+DIFFERENCES WITH OTHER CODE GUIDELINES
+
+  JAVA (sun)
+    ... to be written
+  GNU
+    ... to be written
+
+CHANGELOG
+
+0.91 (Beta 3)
+    - ADD: Eclipse plugin now available.
+    - ADD: new @<file> syntax, which reads command line options from a file.
+    - ADD: Do the special DOS and Windows file handling on all platforms.
+    - ADD: ".scproj" to the list of extensions which are handled in xml/html/sgml mode.
+    - ADD: ".bmp" ".bz2" ".def" ".gif" ".gz" ".ico" ".jar" ".jpeg" ".jpg" ".lzma" ".png" ".tgz" and ".zip" to the list of extensions that should be ignored
+
+0.9 (Beta 2)
+    - BUG: The character sequence "*/*" was mis-handled: After terminating the
+           comment, immediately a new one was started.
+    - BUG: The character sequence "=>" was mis-handled: A space was inserted
+           in the middle, which causes problems in php.
+    - BUG: When a line was split before ')', '}' or '}', a space was left
+           as the last character on the line.
+    - CHG: Labels are now indented differently: The label itself is now
+           indented one level less than the surrounding code. Case-statements
+           (as well as the default:) are still handled as before.
+    - CHG: The #region and #endregion are now indented equally as other code,
+           contrary to other preprocessor constructs.
+    - ADD: Warning and error messages now always start with "<filename>(<row>,<col>)"
+           This allows IDE's like Visual Studio to jump directly to the
+           problematic position in the source code by just double-clicking on
+           the error-message.
+    - ADD: On DOS and Windows, if a file name has the 8.3 format then the intermediate
+           files will have 8.3 format as well. This is done by using <filename>~ as
+           backup file and <filename>$ as temporary file with two exceptions:
+           - If the filename contains no dots, a dot is appended.
+           - If the extension is already 3 characters, then the '~' resp. '$'
+             replaces the last char in stead of appending.
+           BUSL will refuse to beautify files which already end with '~' or '$'
+    - ADD: BUSL is made usable as a thread-safe library. A header file <busl.h> is
+           added which provides the interface. Restructured the source to be
+           in 3 files: busllib.c, busl.c and buslw.c.
+    - ADD: New JNI interface, so BUSL can be used from Java.
+    - ADD: Add objectscript to the list of supported languages. Also add ".os" to
+           the list of supported extensions, and ".a" ".dll" and ".lib" as
+           extensions that should be ignored.
+
+0.8 (Beta 1)
+    - BUG: The keywords "public", "private" and "protected" in C# were not
+           handled correctly when the line containing those keywords contained
+           another colon somewhere.
+    - BUG: The elseif (php) didn't indent correctly in some cases.
+    - BUG: ?>, #>, %> and </script> are now recognized within comments.
+           This makes constructs like <script?<!-- ... //--></script>
+           possible in xml/html/sgml mode.
+    - BUG: Keywords (like if/else/for/...) are now ignored when not preceded by
+           one of ";,:([{}]) \t".
+    - BUG: Various (int) and (char) type casts in order to prevent warnings from
+           some nitpicking C or C++ compilers. BUSL should compile now on any
+           platform without any warning messages, even when the warning level
+           is set to the maximum.
+    - ADD: Support for D.
+    - ADD: Ported to DOS and Win16. Not that it is expected that anyone would use
+           this, but it is meant as proof that BUSL really works on any platform.
+    - ADD: New "s" option which strips all unnessary spaces and comments from
+           your sources.
+    - ADD: New "r" option which forces the MAC line-end convention (CR). Combined
+           with "l" this results in the Windows line-end convention (CR LF)
+    - ADD: The shell-type comment is now recognized as well when preceded
+           by only spaces or tabs. All preceding spaces and tabs are removed.
+    - ADD: BUSL now returns 0 if everything is OK, 1 if there were errors
+           and 2 if there were only warnings. This makes it easier to use BUSL
+           from UNIX shell scripts or Windows batch files.
+    - ADD: More flexible algorithm for converting tabs within comments to either
+           spaces or \t.
+    - CHG: Windows binaries are now compiled with mingw.
+    - CHG: Support for VB-type comment removed: There is too much risk in actual
+           php-code. In stead, the single quote is now always handled as a string.
+
+0.7 (Alpha 7)
+    - BUG: In xml/html/sgml mode, tabs outside of script sections were
+           replaced by "\t".
+    - BUG: Nested braces didn't have newlines inserted when the line
+           ended with C-type comment.
+    - BUG: case-statements containing multiple colons were not handled
+           correctly.
+    - CHG: Enhancement of C-comment handling. Now a block of C-comment
+           will really be indented as be block in most situations.
+           (Thanks to Rijk Ravestein for the suggestion)
+    - CHG: In generic mode, the <CNTR>-Z character now doesn't strip
+           the remaining any more but copies it unmodified to the output.
+    - ADD: Support for <# ... #> in xml/html/sgml mode.
+    - ADD: The '?' and ':' characters now are included in the indent
+           algorithm. They are handled the same as other brackets, except
+           that unbalanced pairs don't lead to warning or error messages.
+    - ADD: "z" option, which appends an empty ZIP trailer to the file.
+    - ADD: Support for VB-type comment starting with single quote.
+
+0.6 (Alpha 6)
+    - BUG: In xml/html/sgml mode, "?>" and "%>" were not properly indented.
+    - BUG: Unmatched close braces now never result in the generation of extra newlines.
+    - BUG: On Windows the temporary file <filename>.new sometimes could not be removed
+           because some other process (e.g. Virus software) kept it locked for a short
+           time. Now BUSL tries again just before exiting. If this fails, it tries
+           one more time after a delay of 200 msec before giving up.
+    - BUG: For legacy code code with tab-distance of 8, convert tabs in comments
+           to the correct number of spaces to keep the alignment the same.
+    - ADD: Added handling of backslash sequences within strings "\a" "\b" "\f"
+           and "\v" in the same way as "\t".
+    - ADD: Enhanced warning and error handling. Now the input file is only
+           overwritten when there are no errors or when the "f" option is selected.
+    - ADD: More comment in code.
+    - ADD: quiet mode, which only gives output when there are errors.
+    - ADD: "buslw.exe", which is a normal windows executable. This looks nicer when
+           used in MSVC++ or .NET.
+    - ADD: Windows build now expands its command line arguments like UNIX. See:
+           <http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vclang/html/_clang_expanding_wildcard_arguments.asp>
+    - ADD: In xml/html/sgml mode, the <script> </script> tag pairs are now
+           recognized. This means that BUSL can now beautify both serverside and
+           clientside javascript within xml/html/sgml code.
+    - ADD: if/else/while/for/case statements without curly braces are now indented
+           as expected in most situations.
+    - CHG: Changed command line option "0" to mean no indenting. Using tabs for
+           indenting is still the default.
+    - CHG: The backup extension is changed from ".orig" to "~", for more compatibality
+           with GNU indent and emacs.
+
+0.5 (Alpha 5)
+    - BUG: xml/html/sgml mode didn't work correctly when scripts contained quotes.
+    - BUG: newlines within comments were not written out any more.
+    - BUG: when beautifying multiple sources, the buffers were not cleared.
+
+0.4 (Alpha 4)
+    - BUG: Handling of backslash followed by spaces at end of comment corrected.
+    - BUG: In xml/html/sgml mode, everything was beautified within <% ... > or <? ... >.
+           This is now changed to <% ... %> resp. <? ... ?>.
+           (thanks to Alex Kwak for his feedback, which leaded to this change)
+
+0.3 (Alpha 3)
+    - ADD: Addition of xml/html/sgml mode.
+
+0.2 (Alpha 2)
+    - BUG: Space- and tab handling modified. Multiple spaces are no longer
+           collapsed to a single space within comments. Tabs are now converted
+           to a single space within comments and to \t within strings.
+           (thanks to Rijk Ravestein voor his feedback, which leaded to this change)
+
+0.1  (Alpha 1)
+    - ADD: Initial version.
+
+Any feedback is appreciated.
+
+      Jan Nijtmans   <mailto:jan.nijtmans@gmail.com>

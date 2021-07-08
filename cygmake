@@ -1,0 +1,27 @@
+#Where to find gcc (and upx), change this to your need
+export SAVE_PATH=${PATH}
+export PATH="c:/mingw/bin:${PATH}"
+export CC=gcc-4
+export AR=ar
+export JC=gcj-4
+export JAR=jar
+#Recommended C-flags for Win32. Works for all gcc-derived compilers.
+export CFLAGS="-O -Wall -Wextra -Werror -mms-bitfields -pipe -DSTRICT"
+#For gcj < 4.3, remove the options -fsource/-ftarget
+export JFLAGS="-Wall -Werror -femit-class-file -fsyntax-only -foutput-class-dir=. -fsource=1.3 -ftarget=1.3"
+
+${CC} ${CFLAGS} -c -o busllib.o busllib.c
+${AR} -cr busl.a busllib.o
+${CC} ${CFLAGS} -mconsole -s -Wl,--large-address-aware -o busl.exe busl.c busllib.o
+${CC} ${CFLAGS} -mconsole -s -Wl,--large-address-aware -o buslcxx.exe busl.cxx busllib.o -lstdc++
+${CC} ${CFLAGS} -mwindows -s -Wl,--large-address-aware -o buslw.exe buslw.c busllib.o
+${CC} ${CFLAGS} -shared -s -Wl,--large-address-aware,--kill-at "-DBUSL_EXPORT=__declspec(dllexport)" -o busl.dll busl.def busljni.c busllib.c
+dlltool -l busl.dll.a -d buslgnu.def -D busl.dll --kill-at
+${CC} ${CFLAGS} -s -Wl,--large-address-aware -mconsole -o buslx.exe busl.c -L. -lbusl
+
+upx --best busl*.exe
+
+${JC} ${JFLAGS} Busl.java
+${JAR} -cfm Busl.jar MANIFEST.MF org/tigris/busl/Busl.class
+
+export PATH=${SAVE_PATH}

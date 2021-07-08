@@ -1,0 +1,24 @@
+/** @mainpage Welkom
+
+Welcome to the <em>BUSL</em> documentation!
+
+- \ref DESIGN_DECISIONS "Design Decisions"
+- \ref RELATED_DOC "Related documentation"
+- \ref AUTHOR "Written by"
+
+*/
+
+/**
+ * \defgroup DESIGN_DECISIONS Design Decisions
+ *
+ * Some design decisions
+ */
+
+/**
+ * \defgroup RELATED_DOC Related documentation
+ */
+
+/**
+ * \defgroup AUTHOR Written by
+ * Jan nijtmans <a href="mailto:jan.nijtmans@gmail.com">&lt;jan.nijtmans@gmail.com&gt;</a>
+ */
